@@ -40,14 +40,15 @@
         /* 數字內容靠右對齊 */
         td {
             text-align: right;
+            white-space: nowrap; /* 禁止換行 */
         }
         td:nth-child(1) {
             text-align: center; /* 進貨盒數居中 */
         }
-        /* 使三欄的欄寬相同 */
+        /* 使進貨價格、進貨金額、建議售價金額三欄等寬 */
         th:nth-child(3), th:nth-child(4), th:nth-child(5),
         td:nth-child(3), td:nth-child(4), td:nth-child(5) {
-            width: 30%;
+        width: 25%; /* 這裡設定欄寬 */
         }
         #calculateBtn {
             background-color: #3B75B7; /* 莫蘭迪藍黑色 */
