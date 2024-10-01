@@ -24,7 +24,7 @@
         }
         table {
             border-collapse: collapse;
-            width: 140%;
+            width: 100%;
             margin-top: 10px;
         }
         th, td {
@@ -44,11 +44,16 @@
         }
         td:nth-child(1) {
             text-align: center; /* 進貨盒數居中 */
+            width: 20%; /* 設定第一欄寬度 */
+        }
+        td:nth-child(2), th:nth-child(2) {
+            text-align: center; /* 進貨次數居中 */
+            width: 20%; /* 設定第二欄寬度 */
         }
         /* 使進貨價格、進貨金額、建議售價金額三欄等寬 */
         th:nth-child(3), th:nth-child(4), th:nth-child(5),
         td:nth-child(3), td:nth-child(4), td:nth-child(5) {
-            width: 25%; /* 這裡設定欄寬 */
+            width: 20%; /* 這裡設定欄寬 */
         }
         #calculateBtn {
             background-color: #3B75B7; /* 莫蘭迪藍黑色 */
