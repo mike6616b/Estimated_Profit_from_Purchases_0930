@@ -24,7 +24,7 @@
         }
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 120%;
             margin-top: 10px;
         }
         th, td {
@@ -58,6 +58,7 @@
             background-color: #3B75B7; /* 莫蘭迪藍黑色 */
             color: white;
             font-size: 16px; /* test */
+            font-weight: bold
             padding: 10px 20px;
             border: none;
             border-radius: 5px; /* 圓角 */
@@ -139,7 +140,7 @@
             </tbody>
         </table>
 
-        <button id="calculateBtn">計  算</button>
+        <button id="calculateBtn">計      算</button>
 
         <div class="result">
             <span id="resultA">全年建議零售價累積金額：0 元</span>
@@ -200,7 +201,11 @@
 
             const totalPurchaseAmount = amount1 + amount3 + amount10 + amount40;
 
-            const C = ((totalPurchaseAmount - 77000) / totalPurchaseAmount) * totalSuggestedAmount * 0.06;
+            // 檢查 totalPurchaseAmount 是否小於 0，若是，則 C 設為 0
+            let C = 0;
+            if (totalPurchaseAmount > 0) {
+                C = ((totalPurchaseAmount - 77000) / totalPurchaseAmount) * totalSuggestedAmount * 0.06;
+            }
 
             // 更新結果，添加千分位逗號
             document.getElementById('resultA').innerText = '全年建議零售價累積金額：' + totalSuggestedAmount.toLocaleString() + ' 元';
