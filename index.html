@@ -24,7 +24,7 @@
         }
         table {
             border-collapse: collapse;
-            width: 120%;
+            width: 130%;
             margin-top: 10px;
         }
         th, td {
@@ -47,7 +47,7 @@
         /* 使三欄的欄寬相同 */
         th:nth-child(3), th:nth-child(4), th:nth-child(5),
         td:nth-child(3), td:nth-child(4), td:nth-child(5) {
-            width: 30%;
+            width: 35%;
         }
         #calculateBtn {
             background-color: #3B75B7; /* 莫蘭迪藍黑色 */
@@ -76,6 +76,11 @@
         .result-line {
             display: flex;
             align-items: center;
+        }
+        input[type="number"] {
+            font-size: 16px; /* 調整這個值，使其與其他數字欄位的字體大小一致 */
+            padding: 8px; /* 讓輸入框的內部留白與其他欄位看起來更相似 */
+            box-sizing: border-box; /* 確保內邊距與邊框大小不影響整體的輸入框大小 */
         }
     </style>
 </head>
