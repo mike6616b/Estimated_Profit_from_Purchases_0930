@@ -9,10 +9,11 @@
         body {
             display: flex;
             justify-content: center;  /* 水平方向居中 */
-            align-items: center;       /* 垂直方向居中 */
-            min-height: 100vh;         /* 使 body 的高度至少等於視窗高度，確保內容可以垂直居中 */
-            margin: 0;                 /* 移除默認的頁面邊距 */
-            color: #444749;            /* 接近黑色的灰色 */
+            align-items: flex-start;  /* 垂直方向靠上對齊 */
+            min-height: 100vh;        /* 使 body 的高度至少等於視窗高度 */
+            margin: 0;                /* 移除默認的頁面邊距 */
+            padding-top: 50px;        /* 增加頂部空間，使內容不至於太貼近上邊界 */
+            color: #444749;           /* 接近黑色的灰色 */
             font-family: 'Noto Sans', sans-serif; /* 設定 Noto Sans 字體 */
         }
         .container {
