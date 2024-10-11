@@ -1,106 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>營利所得試算</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;  /* 水平方向居中 */
-            align-items: flex-start;  /* 垂直方向靠上對齊 */
-            min-height: 100vh;        /* 使 body 的高度至少等於視窗高度 */
-            margin: 0;                /* 移除默認的頁面邊距 */
-            padding-top: 75px;        /* 增加頂部空間，使內容不至於太貼近上邊界 */
-            color: #444749;           /* 接近黑色的灰色 */
-            font-family: 'Noto Sans', sans-serif; /* 設定 Noto Sans 字體 */
-        }
-        .container {
-            text-align: left;
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        p {
-            margin: 10px 0;
-        }
-        table {
-            border-collapse: collapse;
-            width: 125%;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        /* 表頭置中，且不換行 */
-        th {
-            background-color: #f2f2f2;
-            text-align: center;
-            white-space: nowrap;
-        }
-        /* 數字內容靠右對齊 */
-        td {
-            text-align: right;
-        }
-        td:nth-child(1) {
-            text-align: center; /* 進貨盒數居中 */
-            width: 20%
-        }
-        td:nth-child(2) {
-            text-align: center; /* 進貨次數居中 */
-            width: 15%
-        }
-        /* 使三欄的欄寬相同 */
-        th:nth-child(3), th:nth-child(4), th:nth-child(5),
-        td:nth-child(3), td:nth-child(4), td:nth-child(5) {
-            width: 30%;
-        }
-        #calculateBtn {
-            background-color: #3B75B7; /* 莫蘭迪藍黑色 */
-            color: white;
-            font-size: 20px; /* test */
-            font-weight: bold
-            padding: 30px 60px;
-            border: none;
-            border-radius: 5px; /* 圓角 */
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        #calculateBtn:hover {
-            opacity: 0.8;
-        }
-        .result {
-            margin-top: 15px;
-        }
-        .result span {
-            display: block;
-            margin-bottom: 5px;
-        }
-        #resultCValue {
-            color: #FF6F61; /* 帶有一點粉色的紅色 */
-            font-weight: bold;
-        }
-        /* 使預估營利所得不換行 */
-        .result-line {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-            color: red;
-        }
-        input[type="number"] {
-            font-size: 16px; /* 調整這個值，使其與其他數字欄位的字體大小一致 */
-            padding: 5px; /* 讓輸入框的內部留白與其他欄位看起來更相似 */
-            box-sizing: border-box; /* 確保內邊距與邊框大小不影響整體的輸入框大小 */
-            margin-top: 5px;
-        }
-    </style>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>網頁帶目錄的設計</title>
+    <title>營利所得試算與文章分享</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -142,78 +45,165 @@
             flex-grow: 1;
             padding: 20px;
         }
-        /* 營利所得計算樣式 */
-        #profitCalculation {
-            display: none; /* 預設隱藏 */
+        /* 隱藏非選中的內容區域 */
+        #profitCalculation, #articleSharing {
+            display: none; 
         }
-        /* 文章分享區域 */
-        #articleSharing {
-            display: none; /* 預設隱藏 */
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        p {
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        /* 表頭置中，且不換行 */
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+            white-space: nowrap;
+        }
+        td {
+            text-align: right;
+        }
+        td:nth-child(1), td:nth-child(2) {
+            text-align: center;
+        }
+        #calculateBtn {
+            background-color: #3B75B7;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #calculateBtn:hover {
+            opacity: 0.8;
+        }
+        .result {
+            margin-top: 15px;
+        }
+        .result-line {
+            margin-top: 15px;
+            color: red;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>營利所得試算</h1>
-        <p>請依查詢結果，於格子內輸入對應盒數的次數</p>
-        <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
-        <p>2023年建議零售價每盒7,900元</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>進貨盒數</th>
-                    <th>進貨次數</th>
-                    <th>進貨價格</th>
-                    <th>進貨金額</th>
-                    <th>建議售價金額</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><input type="number" id="times1" value="0" min="0"></td>
-                    <td id="price1">9,200</td>
-                    <td id="amount1">0</td>
-                    <td id="suggested1">0</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><input type="number" id="times3" value="0" min="0"></td>
-                    <td id="price3">23,700</td>
-                    <td id="amount3">0</td>
-                    <td id="suggested3">0</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td><input type="number" id="times10" value="0" min="0"></td>
-                    <td id="price10">69,000</td>
-                    <td id="amount10">0</td>
-                    <td id="suggested10">0</td>
-                </tr>
-                <tr>
-                    <td>40</td>
-                    <td><input type="number" id="times40" value="0" min="0"></td>
-                    <td id="price40">236,000</td>
-                    <td id="amount40">0</td>
-                    <td id="suggested40">0</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <button id="calculateBtn">計    算</button>
-
-        <div class="result">
-            <span id="resultA">全年建議零售價累積金額：0 元</span>
-            <span id="resultB">全年進貨累積金額：0 元</span>
-            <div class="result-line">
-                <span>預估營利所得：</span><span id="resultCValue">0 元</span>
-            </div>
-        </div>
-        <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
+    <!-- 左側目錄區塊 -->
+    <div class="sidebar">
+        <h2>目錄</h2>
+        <ul>
+            <li><a id="linkCalculation">營利所得計算</a></li>
+            <li><a id="linkArticle">文章分享</a></li>
+        </ul>
     </div>
 
+    <!-- 中間內容區塊 -->
+    <div class="main-content">
+        <!-- 營利所得計算區塊 -->
+        <div id="profitCalculation">
+            <h1>營利所得試算</h1>
+            <p>請依查詢結果，於格子內輸入對應盒數的次數</p>
+            <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
+            <p>2023年建議零售價每盒7,900元</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>進貨盒數</th>
+                        <th>進貨次數</th>
+                        <th>進貨價格</th>
+                        <th>進貨金額</th>
+                        <th>建議售價金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="number" id="times1" value="0" min="0"></td>
+                        <td id="price1">9,200</td>
+                        <td id="amount1">0</td>
+                        <td id="suggested1">0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><input type="number" id="times3" value="0" min="0"></td>
+                        <td id="price3">23,700</td>
+                        <td id="amount3">0</td>
+                        <td id="suggested3">0</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><input type="number" id="times10" value="0" min="0"></td>
+                        <td id="price10">69,000</td>
+                        <td id="amount10">0</td>
+                        <td id="suggested10">0</td>
+                    </tr>
+                    <tr>
+                        <td>40</td>
+                        <td><input type="number" id="times40" value="0" min="0"></td>
+                        <td id="price40">236,000</td>
+                        <td id="amount40">0</td>
+                        <td id="suggested40">0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button id="calculateBtn">計算</button>
+
+            <div class="result">
+                <span id="resultA">全年建議零售價累積金額：0 元</span>
+                <span id="resultB">全年進貨累積金額：0 元</span>
+                <div class="result-line">
+                    <span>預估營利所得：</span><span id="resultCValue">0 元</span>
+                </div>
+            </div>
+            <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
+        </div>
+
+        <!-- 文章分享區域 -->
+        <div id="articleSharing">
+            <h1>文章分享</h1>
+            <p>這裡是文章分享的內容...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript 部分 -->
     <script>
+        // 獲取元素
+        const linkCalculation = document.getElementById('linkCalculation');
+        const linkArticle = document.getElementById('linkArticle');
+        const profitCalculation = document.getElementById('profitCalculation');
+        const articleSharing = document.getElementById('articleSharing');
+
+        // 點擊“營利所得計算”時顯示對應內容
+        linkCalculation.addEventListener('click', function () {
+            profitCalculation.style.display = 'block'; // 顯示計算區域
+            articleSharing.style.display = 'none'; // 隱藏文章分享
+        });
+
+        // 點擊“文章分享”時顯示對應內容
+        linkArticle.addEventListener('click', function () {
+            profitCalculation.style.display = 'none'; // 隱藏計算區域
+            articleSharing.style.display = 'block'; // 顯示文章分享
+        });
+
+        // 預設顯示“營利所得計算”區域
+        profitCalculation.style.display = 'block';
+
+        // 監聽計算按鈕
         document.getElementById('calculateBtn').addEventListener('click', function() {
             // 各種進貨價格
             const prices = {
@@ -256,75 +246,20 @@
             document.getElementById('suggested40').innerText = suggested40.toLocaleString();
 
             // 計算總數
-            const totalQuantity = times1 * 1 + times3 * 3 + times10 * 10 + times40 * 40;
             const totalSuggestedAmount = suggested1 + suggested3 + suggested10 + suggested40;
-
             const totalPurchaseAmount = amount1 + amount3 + amount10 + amount40;
 
-            // 檢查 totalPurchaseAmount 是否小於 0，若是，則 C 設為 0
+            // 檢查 totalPurchaseAmount 是否大於 77000
             let C = 0;
             if (totalPurchaseAmount > 77000) {
                 C = ((totalPurchaseAmount - 77000) / totalPurchaseAmount) * totalSuggestedAmount * 0.06;
             }
 
-            // 更新結果，添加千分位逗號
+            // 更新結果
             document.getElementById('resultA').innerText = '全年建議零售價累積金額：' + totalSuggestedAmount.toLocaleString() + ' 元';
             document.getElementById('resultB').innerText = '全年進貨累積金額：' + totalPurchaseAmount.toLocaleString() + ' 元';
             document.getElementById('resultCValue').innerText = Math.round(C).toLocaleString() + ' 元';
         });
-    </script>
-        <!-- 左側目錄區塊 -->
-    <div class="sidebar">
-        <h2>目錄</h2>
-        <ul>
-            <li><a id="linkCalculation">營利所得計算</a></li>
-            <li><a id="linkArticle">文章分享</a></li>
-        </ul>
-    </div>
-
-    <!-- 中間內容區塊 -->
-    <div class="main-content">
-        <!-- 營利所得計算區塊 -->
-        <div id="profitCalculation">
-            <h1>營利所得試算</h1>
-            <p>請依查詢結果，於格子內輸入對應盒數的次數</p>
-            <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
-            <p>2023年建議零售價每盒7,900元</p>
-
-            <!-- 此處為計算表格 -->
-            <!-- 可以將您的原計算表格及按鈕程式碼放置於這裡 -->
-        </div>
-
-        <!-- 文章分享區塊 -->
-        <div id="articleSharing">
-            <h1>文章分享</h1>
-            <p>這裡是文章分享的內容...</p>
-            <!-- 您可以在這裡擴充更多的文章內容 -->
-        </div>
-    </div>
-
-    <!-- JavaScript 部分 -->
-    <script>
-        // 獲取元素
-        const linkCalculation = document.getElementById('linkCalculation');
-        const linkArticle = document.getElementById('linkArticle');
-        const profitCalculation = document.getElementById('profitCalculation');
-        const articleSharing = document.getElementById('articleSharing');
-
-        // 點擊“營利所得計算”時顯示對應內容
-        linkCalculation.addEventListener('click', function () {
-            profitCalculation.style.display = 'block'; // 顯示計算區域
-            articleSharing.style.display = 'none'; // 隱藏文章分享
-        });
-
-        // 點擊“文章分享”時顯示對應內容
-        linkArticle.addEventListener('click', function () {
-            profitCalculation.style.display = 'none'; // 隱藏計算區域
-            articleSharing.style.display = 'block'; // 顯示文章分享
-        });
-
-        // 預設顯示“營利所得計算”區域
-        profitCalculation.style.display = 'block';
     </script>
 </body>
 </html>
