@@ -13,7 +13,6 @@
             color: #444749;
             height: 100vh;
         }
-        /* 左側目錄區塊 */
         .sidebar {
             width: 200px;
             background-color: #f2f2f2;
@@ -38,46 +37,46 @@
             cursor: pointer;
         }
         .sidebar ul li a:hover {
-            color: #3B75B7; /* 當滑鼠懸停時改變顏色 */
+            color: #3B75B7;
         }
-        /* 中間內容區塊 */
+        
         .main-content {
             flex-grow: 1;
             padding: 20px;
         }
-        /* 隱藏非選中的內容區域 */
-        #profitCalculation, #articleSharing {
-            display: none; 
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        p {
-            margin: 10px 0;
-        }
+
+        /* 調整表格外觀 */
         table {
             border-collapse: collapse;
-            width: 100%;
+            table-layout: fixed; /* 固定表格佈局 */
+            width: 600px; /* 設定固定寬度 */
+            margin: 0 auto; /* 置中顯示 */
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         th, td {
             border: 1px solid black;
             padding: 8px;
+            width: 20%; /* 五欄等寬 (1/5) */
+            text-align: center; /* 欄位內容置中 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        /* 表頭置中，且不換行 */
+
         th {
             background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* 將 input[type="number"] 的字型與對齊方式稍作調整 */
+        td input[type="number"] {
             text-align: center;
-            white-space: nowrap;
+            width: 80%; /* 不要太寬 */
+            box-sizing: border-box;
         }
-        td {
-            text-align: right;
-        }
-        td:nth-child(1), td:nth-child(2) {
-            text-align: center;
-        }
+
         #calculateBtn {
             background-color: #3B75B7;
             color: white;
@@ -87,21 +86,26 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         #calculateBtn:hover {
             opacity: 0.8;
         }
+
         .result {
             margin-top: 15px;
+            text-align: center; /* 結果文字置中 */
         }
         .result-line {
             margin-top: 15px;
             color: red;
         }
+
     </style>
 </head>
 <body>
-    <!-- 左側目錄區塊 -->
     <div class="sidebar">
         <h2>目錄</h2>
         <ul>
@@ -110,9 +114,7 @@
         </ul>
     </div>
 
-    <!-- 中間內容區塊 -->
     <div class="main-content">
-        <!-- 營利所得計算區塊 -->
         <div id="profitCalculation">
             <h1>營利所得試算</h1>
             <p>請依查詢結果，於格子內輸入對應盒數的次數</p>
@@ -164,77 +166,64 @@
             <button id="calculateBtn">計算</button>
 
             <div class="result">
-                <span id="resultA">全年建議零售價累積金額：0 元</span>
+                <span id="resultA">全年建議零售價累積金額：0 元</span><br>
                 <span id="resultB">全年進貨累積金額：0 元</span>
                 <div class="result-line">
                     <span>預估營利所得：</span><span id="resultCValue">0 元</span>
                 </div>
             </div>
-            <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
+            <p style="text-align: center;">預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
         </div>
 
-        <!-- 文章分享區域 -->
         <div id="articleSharing">
             <h1>文章分享</h1>
             <p>這裡是文章分享的內容...</p>
         </div>
     </div>
 
-    <!-- JavaScript 部分 -->
     <script>
-        // 獲取元素
+        // 原有的JS程式碼維持不變
         const linkCalculation = document.getElementById('linkCalculation');
         const linkArticle = document.getElementById('linkArticle');
         const profitCalculation = document.getElementById('profitCalculation');
         const articleSharing = document.getElementById('articleSharing');
 
-        // 點擊“營利所得計算”時顯示對應內容
         linkCalculation.addEventListener('click', function () {
-            profitCalculation.style.display = 'block'; // 顯示計算區域
-            articleSharing.style.display = 'none'; // 隱藏文章分享
+            profitCalculation.style.display = 'block';
+            articleSharing.style.display = 'none';
         });
 
-        // 點擊“文章分享”時顯示對應內容
         linkArticle.addEventListener('click', function () {
-            profitCalculation.style.display = 'none'; // 隱藏計算區域
-            articleSharing.style.display = 'block'; // 顯示文章分享
+            profitCalculation.style.display = 'none';
+            articleSharing.style.display = 'block';
         });
 
-        // 預設顯示“營利所得計算”區域
         profitCalculation.style.display = 'block';
 
-        // 監聽計算按鈕
         document.getElementById('calculateBtn').addEventListener('click', function() {
-            // 各種進貨價格
             const prices = {
                 1: 9200,
                 3: 23700,
                 10: 69000,
                 40: 236000
             };
-
-            // 建議零售價每盒
             const suggestedPricePerBox = 7900;
 
-            // 獲取進貨次數
             const times1 = parseInt(document.getElementById('times1').value) || 0;
             const times3 = parseInt(document.getElementById('times3').value) || 0;
             const times10 = parseInt(document.getElementById('times10').value) || 0;
             const times40 = parseInt(document.getElementById('times40').value) || 0;
 
-            // 計算進貨金額
             const amount1 = times1 * prices[1];
             const amount3 = times3 * prices[3];
             const amount10 = times10 * prices[10];
             const amount40 = times40 * prices[40];
 
-            // 計算建議售價金額
             const suggested1 = suggestedPricePerBox * 1 * times1;
             const suggested3 = suggestedPricePerBox * 3 * times3;
             const suggested10 = suggestedPricePerBox * 10 * times10;
             const suggested40 = suggestedPricePerBox * 40 * times40;
 
-            // 更新表格中的金額，添加千分位逗號
             document.getElementById('amount1').innerText = amount1.toLocaleString();
             document.getElementById('amount3').innerText = amount3.toLocaleString();
             document.getElementById('amount10').innerText = amount10.toLocaleString();
@@ -245,21 +234,21 @@
             document.getElementById('suggested10').innerText = suggested10.toLocaleString();
             document.getElementById('suggested40').innerText = suggested40.toLocaleString();
 
-            // 計算總數
             const totalSuggestedAmount = suggested1 + suggested3 + suggested10 + suggested40;
             const totalPurchaseAmount = amount1 + amount3 + amount10 + amount40;
 
-            // 檢查 totalPurchaseAmount 是否大於 77000
             let C = 0;
             if (totalPurchaseAmount > 77000) {
                 C = ((totalPurchaseAmount - 77000) / totalPurchaseAmount) * totalSuggestedAmount * 0.06;
             }
 
-            // 更新結果
             document.getElementById('resultA').innerText = '全年建議零售價累積金額：' + totalSuggestedAmount.toLocaleString() + ' 元';
             document.getElementById('resultB').innerText = '全年進貨累積金額：' + totalPurchaseAmount.toLocaleString() + ' 元';
             document.getElementById('resultCValue').innerText = Math.round(C).toLocaleString() + ' 元';
         });
     </script>
+</body>
+</html>
+
 </body>
 </html>
