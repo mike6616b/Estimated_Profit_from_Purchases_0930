@@ -13,6 +13,8 @@
             color: #444749;
             height: 100vh;
         }
+
+        /* 左側目錄區塊 */
         .sidebar {
             width: 200px;
             background-color: #f2f2f2;
@@ -39,44 +41,60 @@
         .sidebar ul li a:hover {
             color: #3B75B7;
         }
-        
+
+        /* 中間內容區塊 */
         .main-content {
             flex-grow: 1;
             padding: 20px;
         }
 
-        /* 調整表格外觀 */
+        /* 預設只顯示營利所得計算 */
+        #profitCalculation {
+            display: block;
+        }
+        #articleSharing {
+            display: none;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 20px;
+        }
+        p {
+            margin: 10px 0;
+        }
+
+        /* 表格樣式調整 */
         table {
             border-collapse: collapse;
-            table-layout: fixed; /* 固定表格佈局 */
-            width: 600px; /* 設定固定寬度 */
-            margin: 0 auto; /* 置中顯示 */
+            table-layout: fixed; /* 固定表格佈局以等寬 */
+            width: 600px; /* 可視需求調整 */
             margin-top: 10px;
             margin-bottom: 10px;
         }
-
         th, td {
             border: 1px solid black;
             padding: 8px;
-            width: 20%; /* 五欄等寬 (1/5) */
-            text-align: center; /* 欄位內容置中 */
+            width: 20%;
+            text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
 
-        /* 將 input[type="number"] 的字型與對齊方式稍作調整 */
+        /* 將 input[type="number"] 置中 */
         td input[type="number"] {
             text-align: center;
-            width: 80%; /* 不要太寬 */
+            width: 80%;
             box-sizing: border-box;
         }
 
+        /* 計算按鈕 */
         #calculateBtn {
             background-color: #3B75B7;
             color: white;
@@ -86,26 +104,26 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
         #calculateBtn:hover {
             opacity: 0.8;
         }
 
+        /* 結果區塊左對齊 */
         .result {
             margin-top: 15px;
-            text-align: center; /* 結果文字置中 */
+            text-align: left;
         }
         .result-line {
             margin-top: 15px;
             color: red;
+            text-align: left;
         }
 
     </style>
 </head>
 <body>
+    <!-- 左側目錄區塊 -->
     <div class="sidebar">
         <h2>目錄</h2>
         <ul>
@@ -114,7 +132,9 @@
         </ul>
     </div>
 
+    <!-- 中間內容區塊 -->
     <div class="main-content">
+        <!-- 營利所得計算區塊 -->
         <div id="profitCalculation">
             <h1>營利所得試算</h1>
             <p>請依查詢結果，於格子內輸入對應盒數的次數</p>
@@ -166,28 +186,31 @@
             <button id="calculateBtn">計算</button>
 
             <div class="result">
-                <span id="resultA">全年建議零售價累積金額：0 元</span><br>
-                <span id="resultB">全年進貨累積金額：0 元</span>
+                <div id="resultA">全年建議零售價累積金額：0 元</div>
+                <div id="resultB">全年進貨累積金額：0 元</div>
                 <div class="result-line">
                     <span>預估營利所得：</span><span id="resultCValue">0 元</span>
                 </div>
             </div>
-            <p style="text-align: center;">預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
+            <p>預估營利所得僅供參考，所有金額皆以稅局核定為準</p>
         </div>
 
+        <!-- 文章分享區域 -->
         <div id="articleSharing">
             <h1>文章分享</h1>
             <p>這裡是文章分享的內容...</p>
         </div>
     </div>
 
+    <!-- JavaScript 部分 -->
     <script>
-        // 原有的JS程式碼維持不變
+        // 預設顯示 "營利所得計算" 並隱藏 "文章分享"
         const linkCalculation = document.getElementById('linkCalculation');
         const linkArticle = document.getElementById('linkArticle');
         const profitCalculation = document.getElementById('profitCalculation');
         const articleSharing = document.getElementById('articleSharing');
 
+        // 點擊後才切換顯示
         linkCalculation.addEventListener('click', function () {
             profitCalculation.style.display = 'block';
             articleSharing.style.display = 'none';
@@ -198,7 +221,9 @@
             articleSharing.style.display = 'block';
         });
 
+        // 預設只顯示營利所得計算
         profitCalculation.style.display = 'block';
+        articleSharing.style.display = 'none';
 
         document.getElementById('calculateBtn').addEventListener('click', function() {
             const prices = {
@@ -247,8 +272,5 @@
             document.getElementById('resultCValue').innerText = Math.round(C).toLocaleString() + ' 元';
         });
     </script>
-</body>
-</html>
-
 </body>
 </html>
